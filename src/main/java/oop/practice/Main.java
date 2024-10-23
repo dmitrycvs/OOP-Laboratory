@@ -14,7 +14,7 @@ import java.util.Map;
 public class Main {
   public static void main(String[] args) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    File inputFile = new File("src/main/resources/test-input.json");
+    File inputFile = new File("src/main/resources/input.json");
     JsonNode data = mapper.readTree(inputFile).get("data");
 
     Universe starWars = new Universe("starWars", new ArrayList<>());
@@ -84,7 +84,7 @@ class UniverseClassifier {
     if (isHumanoid != null && isHumanoid.booleanValue()) {
       return false;
     }
-    if (planet != null && !planet.asText().equals("Kashyyk")) {
+    if (planet != null && !planet.asText().equals("Kashyyyk")) {
       isWookie = false;
     }
     if (planet != null && !planet.asText().equals("Endor")) {
@@ -97,16 +97,16 @@ class UniverseClassifier {
       isEwok = age.asInt() >= 0 && age.asInt() <= 60;
     }
     if (isWookie && traits != null && !traits.isEmpty()) {
-      isWookie = traits.get(0) != null && (traits.get(0).asText().equals("HAIRY") || traits.get(0).asText().equals("TALL"));
+      isWookie = traits.get(0).asText().equals("HAIRY") || traits.get(0).asText().equals("TALL");
     }
     if (isWookie && traits != null && traits.size() > 1 && traits.get(1) != null) {
-      isWookie = traits.get(1).asText().equals("TALL");
+      isWookie = traits.get(1).asText().equals("TALL") || traits.get(1).asText().equals("HAIRY");
     }
     if (isEwok && traits != null && !traits.isEmpty()) {
-      isEwok = traits.get(0) != null && (traits.get(0).asText().equals("SHORT") || traits.get(0).asText().equals("HAIRY"));
+      isEwok = traits.get(0).asText().equals("SHORT") || traits.get(0).asText().equals("HAIRY");
     }
     if (isEwok && traits != null && traits.size() > 1 && traits.get(1) != null) {
-      isEwok = traits.get(1).asText().equals("HAIRY");
+      isEwok = traits.get(1).asText().equals("HAIRY") || traits.get(1).asText().equals("SHORT");
     }
 
     return isWookie || isEwok;
@@ -124,16 +124,16 @@ class UniverseClassifier {
       return false;
     }
     if (planet != null && !planet.asText().equals("Asgard")) {
-      isAsgardian = false;
+      return false;
     }
-    if (isAsgardian && age != null) {
+    if (age != null) {
       isAsgardian = age.asInt() >= 0 && age.asInt() <= 5000;
     }
     if (isAsgardian && traits != null && !traits.isEmpty()) {
-      isAsgardian = traits.get(0) != null && (traits.get(0).asText().equals("BLONDE") || traits.get(0).asText().equals("TALL"));
+      isAsgardian = traits.get(0).asText().equals("BLONDE") || traits.get(0).asText().equals("TALL");
     }
     if (isAsgardian && traits != null && traits.size() > 1 && traits.get(1) != null) {
-      isAsgardian = traits.get(1).asText().equals("TALL");
+      isAsgardian = traits.get(1).asText().equals("TALL") || traits.get(1).asText().equals("BLONDE");
     }
     return isAsgardian;
   }
@@ -148,13 +148,15 @@ class UniverseClassifier {
     boolean isBetelgeusian = true;
     boolean isVogons = true;
 
-    if (isHumanoid != null && isHumanoid.booleanValue()) {
-      isVogons = false;
+    if (isHumanoid != null) {
+      if (isHumanoid.booleanValue()) {
+        isVogons = false;
+      }
+      else {
+        isBetelgeusian = false;
+      }
     }
-    else {
-      isBetelgeusian = false;
-    }
-    if (planet != null && !planet.asText().equals("BETELGEUSE")) {
+    if (planet != null && !planet.asText().equals("Betelgeuse")) {
       isBetelgeusian = false;
     }
     if (planet != null && !planet.asText().equals("Vogsphere")) {
@@ -167,16 +169,16 @@ class UniverseClassifier {
       isVogons = age.asInt() >= 0 && age.asInt() <= 200;
     }
     if (isBetelgeusian && traits != null && !traits.isEmpty()) {
-      isBetelgeusian = traits.get(0) != null && (traits.get(0).asText().equals("EXTRA_ARMS") || traits.get(0).asText().equals("EXTRA_HEAD"));
+      isBetelgeusian = traits.get(0).asText().equals("EXTRA_ARMS") || traits.get(0).asText().equals("EXTRA_HEAD");
     }
     if (isBetelgeusian && traits != null && traits.size() > 1 && traits.get(1) != null) {
-      isBetelgeusian = traits.get(1).asText().equals("EXTRA_HEAD");
+      isBetelgeusian = traits.get(1).asText().equals("EXTRA_HEAD") || traits.get(1).asText().equals("EXTRA_ARMS");
     }
     if (isVogons && traits != null && !traits.isEmpty()) {
-      isVogons = traits.get(0) != null && (traits.get(0).asText().equals("GREEN") || traits.get(0).asText().equals("BULKY"));
+      isVogons = traits.get(0).asText().equals("GREEN") || traits.get(0).asText().equals("BULKY");
     }
     if (isVogons && traits != null && traits.size() > 1 && traits.get(1) != null) {
-      isVogons = traits.get(1).asText().equals("BULKY");
+      isVogons = traits.get(1).asText().equals("BULKY") || traits.get(1).asText().equals("GREEN");
     }
 
     return isBetelgeusian || isVogons;
@@ -201,16 +203,16 @@ class UniverseClassifier {
       isDwarf = age.asInt() >= 0 && age.asInt() <= 200;
     }
     if (traits != null && !traits.isEmpty()) {
-      isElf = traits.get(0) != null && (traits.get(0).asText().equals("BLONDE") || traits.get(0).asText().equals("POINTY_EARS"));
+      isElf = traits.get(0).asText().equals("BLONDE") || traits.get(0).asText().equals("POINTY_EARS");
     }
     if (isElf && traits != null && traits.size() > 1 && traits.get(1) != null) {
-      isElf = traits.get(1).asText().equals("POINTY_EARS");
+      isElf = traits.get(1).asText().equals("POINTY_EARS") || traits.get(1).asText().equals("BLONDE");
     }
     if (isDwarf && traits != null && !traits.isEmpty()) {
-      isDwarf = traits.get(0) != null && (traits.get(0).asText().equals("SHORT") || traits.get(0).asText().equals("BULKY"));
+      isDwarf = traits.get(0).asText().equals("SHORT") || traits.get(0).asText().equals("BULKY");
     }
     if (isDwarf && traits != null && traits.size() > 1 && traits.get(1) != null) {
-      isDwarf = traits.get(1).asText().equals("BULKY");
+      isDwarf = traits.get(1).asText().equals("BULKY") || traits.get(1).asText().equals("SHORT");
     }
 
     return isElf || isDwarf;
