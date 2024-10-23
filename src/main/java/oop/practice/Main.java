@@ -22,31 +22,34 @@ public class Main {
     Universe marvel = new Universe("marvel", new ArrayList<>());
     Universe rings = new Universe("rings", new ArrayList<>());
 
-    Scanner scanner = new Scanner(System.in);
-
     for (JsonNode entry : data) {
-      String entryAsString = entry.toString();
-      System.out.println(entryAsString);
-      String userInput = scanner.nextLine();
-      switch (userInput) {
-        case "1":
-          starWars.individuals().add(entry);
-          break;
-        case "2":
-          hitchhikers.individuals().add(entry);
-          break;
-        case "3":
-          marvel.individuals().add(entry);
-          break;
-        case "4":
-          rings.individuals().add(entry);
-          break;
-        default:
-          System.out.println("Invalid input");
+      UniverseClassifier classifier = new UniverseClassifier(entry);
+      if (classifier.isStarWars()) {
+        if (classifier.isMarvel() || classifier.isHitchhikers() || classifier.isRing()) {
+          continue;
+        }
+        starWars.individuals().add(entry);
+      }
+      else if (classifier.isHitchhikers()) {
+        if (classifier.isMarvel() || classifier.isRing() || classifier.isStarWars()) {
+          continue;
+        }
+        hitchhikers.individuals().add(entry);
+      }
+      else if (classifier.isRing()) {
+        if (classifier.isMarvel() || classifier.isStarWars() || classifier.isHitchhikers()) {
+          continue;
+        }
+        rings.individuals().add(entry);
+      }
+      else if (classifier.isMarvel()) {
+        if (classifier.isHitchhikers() || classifier.isStarWars() || classifier.isRing()) {
+          continue;
+        }
+        marvel.individuals().add(entry);
       }
     }
 
-    scanner.close();
     mapper.writeValue(new File("src/main/resources/output/starwars.json"), starWars);
     mapper.writeValue(new File("src/main/resources/output/hitchhiker.json"), hitchhikers);
     mapper.writeValue(new File("src/main/resources/output/rings.json"), rings);
