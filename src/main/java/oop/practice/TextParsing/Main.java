@@ -8,15 +8,14 @@ public class Main {
             System.out.println("Please provide the path to the .txt file as a command-line argument.");
             return;
         }
-        for (String arg : args) {
-            try {
-                String textContent = FileReader.readFileIntoString(arg);
-                TextData textData = new TextData(arg, textContent);
-                System.out.println(textData);
+        String path = args[0];
+        try {
+            String textContent = FileReader.readFileIntoString(path);
+            TextData textData = new TextData(path, textContent);
+            System.out.println(textData);
 
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
