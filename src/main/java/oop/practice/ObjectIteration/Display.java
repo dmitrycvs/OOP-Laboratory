@@ -6,7 +6,7 @@ public class Display {
     private final float ppi;
     private final String model;
 
-    Display(int width, int height, float ppi, String model) {
+    public Display(int width, int height, float ppi, String model) {
         this.width = width;
         this.height = height;
         this.ppi = ppi;

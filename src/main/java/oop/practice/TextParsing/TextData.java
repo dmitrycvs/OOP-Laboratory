@@ -41,6 +41,34 @@ public class TextData {
         }
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getNumberOfVowels() {
+        return numberOfVowels;
+    }
+
+    public int getNumberOfConsonants() {
+        return numberOfConsonants;
+    }
+
+    public int getNumberOfLetters() {
+        return numberOfLetters;
+    }
+
+    public int getNumberOfSentences() {
+        return numberOfSentences;
+    }
+
+    public String getLongestWord() {
+        return longestWord;
+    }
+
     @Override
     public String toString() {
         return "File: " + fileName + "\n" +
