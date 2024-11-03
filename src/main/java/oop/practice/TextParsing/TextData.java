@@ -9,7 +9,7 @@ public class TextData {
     private int numberOfLetters;
     private int numberOfSentences;
 
-    TextData(String fileName, String text) {
+    public TextData(String fileName, String text) {
         this.fileName = fileName;
         this.text = text;
         analyzeText();
