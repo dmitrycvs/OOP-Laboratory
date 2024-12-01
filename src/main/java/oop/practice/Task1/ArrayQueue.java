@@ -1,4 +1,4 @@
-package oop.practice.Queue;
+package oop.practice.Task1;
 
 public class ArrayQueue<T> implements Queue<T> {
     private Object[] elements;

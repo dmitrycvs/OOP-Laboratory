@@ -1,4 +1,4 @@
-package oop.practice.Queue;
+package oop.practice.Task1;
 
 public interface Queue<T> {
     void enqueue(T element);
