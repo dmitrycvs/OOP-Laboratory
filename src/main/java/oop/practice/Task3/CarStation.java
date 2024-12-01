@@ -31,4 +31,8 @@ public class CarStation {
     public void addCar(Car car) {
         queue.enqueue(car);
     }
+
+    public int getNumberOfCars() {
+        return queue.size();
+    }
 }
