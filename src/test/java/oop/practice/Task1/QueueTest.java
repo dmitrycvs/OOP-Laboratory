@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QueueTest {
     @Test
     public void test() {
-        Queue<Integer> queue = new ArrayQueue<>(10);
+        IQueue<Integer> queue = new Queue<>();
         assertTrue(queue.isEmpty());
         queue.enqueue(10);
         queue.enqueue(20);

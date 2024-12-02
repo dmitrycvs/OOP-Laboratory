@@ -1,7 +1,7 @@
 package oop.practice.Task3;
 
 import oop.practice.Car;
-import oop.practice.Task1.ArrayQueue;
+import oop.practice.Task1.Queue;
 import oop.practice.Task2.IDineable;
 import oop.practice.Task2.IRefuelable;
 import oop.practice.Task4.Semaphore;
@@ -9,10 +9,10 @@ import oop.practice.Task4.Semaphore;
 public class CarStation implements Runnable {
     private IDineable diningService;
     private IRefuelable refuelingService;
-    private ArrayQueue<Car> cars = new ArrayQueue<>(50);
-    private Thread stationThread;
+    private Queue<Car> cars = new Queue<>();
+    private Thread thread;
     private int stationId;
-    private final Object lock = new Object();
+    private final Object queueLock = new Object();
     private Semaphore semaphore;
 
     public CarStation(IDineable diningService, IRefuelable refuelingService, int stationId, Semaphore semaphore) {
@@ -27,54 +27,57 @@ public class CarStation implements Runnable {
         try {
             while (true) {
                 Car car;
-                synchronized (lock) {
+                synchronized (queueLock) {
                     if (cars.isEmpty()) {
-                        showStatus("Thread terminating...");
+                        updateTerminal("Thread terminating...");
                         break;
                     }
                     car = cars.dequeue();
                 }
 
                 for (int i = 0; i < 20; i++) {
-                    showStatus("[" + "#".repeat(i) + " ".repeat(20 - i) + "] " + "Processing: Car" + car.getId() + " | Cars in queue: " + cars.size());
+                    updateTerminal("[" + "#".repeat(i) + " ".repeat(20 - i) + "] " + "Processing: Car" + car.getId() + " | Cars in queue: " + cars.size());
                     Thread.sleep(car.getConsumption() * 70);
                 }
 
+                System.out.println("-----------------------------");
+                System.out.println("Car Station " + stationId + ":");
                 refuelingService.refuel(car.getId());
-                if (car.getIsDining()) {
-                    diningService.serveDinner(car.getId());
-                }
+                if (car.getIsDining()) diningService.serveDinner(car.getId());
+                System.out.println("-----------------------------");
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            showStatus("Thread interrupted");
+            updateTerminal("Thread interrupted");
         }
     }
 
     public void addCar(Car car) {
-        synchronized (lock) {
+        synchronized (queueLock) {
             cars.enqueue(car);
-            if (stationThread == null || !stationThread.isAlive()) {
-                createAndStartThread();
+            if (thread == null || !thread.isAlive()) {
+                startThread();
             }
-            lock.notify();
+            queueLock.notify();
         }
     }
 
-    private void createAndStartThread() {
-        stationThread = new Thread(this);
-        stationThread.start();
-        semaphore.addStationThread(stationThread);
+    private void startThread() {
+        thread = new Thread(this);
+        thread.start();
+        semaphore.addStationThread(thread);
     }
 
     public int getNumberOfCars() {
-        synchronized (lock) {
+        synchronized (queueLock) {
             return cars.size();
         }
     }
 
-    private void showStatus(String message) {
-        System.out.printf("\033[%d;0HCarStation%d: %s\033[K\n", stationId + 1, stationId, message);
+    private void updateTerminal(String status) {
+        System.out.printf("\033[%d;0HCarStation%d: %s\033[K\n", stationId + 1, stationId, status);
         System.out.flush();
     }
 }
+
+

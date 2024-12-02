@@ -1,0 +1,59 @@
+[33mcommit 758a8512151e95c93671ac358796e207b9dafb77[m[33m ([m[1;36mHEAD -> [m[1;32moop-advanced-tasks[m[33m, [m[1;31morigin/oop-advanced-tasks[m[33m)[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 17 19:34:06 2024 +0200
+
+    Added the Barista class
+
+[33mcommit b55737137069b32283be24b2a557572bd9c4f917[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 17 19:15:57 2024 +0200
+
+    Added also the information of what coffee is being made
+
+[33mcommit 11fa6f1a3a09adcdfff351917c3af8983f323d6e[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 17 19:06:25 2024 +0200
+
+    Added some changes to the class Coffee
+
+[33mcommit 9343ccbb32f1ba1439c2f2739fd78e1c6fa9da3c[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 17 18:46:38 2024 +0200
+
+    Added the logic of how a client can order coffee using classes/enums
+
+[33mcommit d885a28dced9dd8cf5c9ad3c1a0e5922fc39be26[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 17 18:29:38 2024 +0200
+
+    Initialization of the new branch
+
+[33mcommit 69ce24169aa0583ac8a7d6a1dfdc2288d147299f[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 3 18:36:44 2024 +0200
+
+    Added the possibility to handle multiple files using TextParsing and some bugs were fixed
+
+[33mcommit b0eb367d053839c0b67335f67f8eb0a1ff38f213[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 3 17:45:48 2024 +0200
+
+    Added the Assistant class with several options
+
+[33mcommit 8f443b0f5fe9eaa01128e077050e352ba02a8bda[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 3 11:41:05 2024 +0200
+
+    Made the task of Text parsing data from a given file as an argument
+
+[33mcommit a61753d868e21c07c296cf926c9138d1d91d1884[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 3 10:49:35 2024 +0200
+
+    Added the Ist task
+
+[33mcommit f0866fa78e732485afca0abeb3652e30eed96b37[m
+Author: unknown <cvasiuc.dima@gmail.com>
+Date:   Sun Nov 3 09:44:58 2024 +0200
+
+    Initialization of a new branch

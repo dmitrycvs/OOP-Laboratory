@@ -28,20 +28,23 @@ public class CarReader extends TimerTask {
             return;
         }
 
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode carData;
         try {
-            JsonNode carData = new ObjectMapper().readTree(file);
-            Car car = new Car(
-                    carData.get("id").asText(),
-                    carData.get("type").asText(),
-                    carData.get("passengers").asText(),
-                    carData.get("isDining").asBoolean(),
-                    carData.get("consumption").asInt()
-            );
-            sp.navigateCars(car);
+            carData = mapper.readTree(file);
         } catch (IOException e) {
             throw new RuntimeException("File reading error: " + file.getName(), e);
         }
 
+        Car car = new Car(
+                carData.get("id").asText(),
+                carData.get("type").asText(),
+                carData.get("passengers").asText(),
+                carData.get("isDining").asBoolean(),
+                carData.get("consumption").asInt()
+        );
+
+        sp.navigateCars(car);
         index++;
     }
 }
