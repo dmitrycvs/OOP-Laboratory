@@ -6,12 +6,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class QueueTest {
     @Test
-    public void test() {
-        IQueue<Integer> queue = new Queue<>();
-        assertTrue(queue.isEmpty());
-        queue.enqueue(10);
-        queue.enqueue(20);
-        queue.enqueue(30);
-        assertEquals(3, queue.size());
+    public void testSize() {
+        Queue<Integer> queue = new Queue<>();
+        Queue<Integer> queue2 = new Queue<>();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        assertEquals(2, queue.size());
+        assertEquals(0, queue2.size());
+        assertTrue(queue2.isEmpty());
+    }
+
+    @Test
+    public void testDeque() {
+        Queue<Integer> queue = new Queue<>();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        assertEquals(1, queue.dequeue());
+        assertEquals(2, queue.dequeue());
+        assertNull(queue.dequeue());
     }
 }

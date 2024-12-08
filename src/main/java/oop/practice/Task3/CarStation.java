@@ -24,9 +24,8 @@ public class CarStation implements Runnable {
 
     @Override
     public void run() {
-        try {
-            while (true) {
-                Car car;
+        while (true) {
+            Car car;
                 synchronized (queueLock) {
                     if (cars.isEmpty()) {
                         updateTerminal("Thread terminating...");
@@ -35,21 +34,12 @@ public class CarStation implements Runnable {
                     car = cars.dequeue();
                 }
 
-                for (int i = 0; i < 20; i++) {
-                    updateTerminal("[" + "#".repeat(i) + " ".repeat(20 - i) + "] " + "Processing: Car" + car.getId() + " | Cars in queue: " + cars.size());
-                    Thread.sleep(car.getConsumption() * 70);
-                }
-
                 System.out.println("-----------------------------");
                 System.out.println("Car Station " + stationId + ":");
                 refuelingService.refuel(car.getId());
                 if (car.getIsDining()) diningService.serveDinner(car.getId());
                 System.out.println("-----------------------------");
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            updateTerminal("Thread interrupted");
-        }
     }
 
     public void addCar(Car car) {
